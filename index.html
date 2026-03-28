@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AURELOGICS — ASIC Design & Verification</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-
+  <title>Aurelogics — ASIC Design & Verification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Tenor+Sans&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -14,253 +12,472 @@
       --ink: #0d0d0d;
       --paper: #f6f4ef;
       --cream: #ece8df;
-      --gold: #a8884a;
+      --accent: #a8884a;
+      --accent-dark: #7a6030;
       --muted: #6e6b63;
       --line: rgba(13,13,13,0.1);
-      --serif: 'Cormorant Garamond', serif;
+      --serif: 'Cormorant Garamond', Georgia, serif;
       --sans: 'DM Sans', sans-serif;
     }
 
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: var(--sans);
-    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-weight: 300; overflow-x: hidden; }
 
+    /* NAV */
     nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 1.5rem 4rem;
-      background: rgba(246,244,239,0.95);
+      background: rgba(246,244,239,0.93);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
-      z-index: 10;
     }
-
     .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.4rem;
-      letter-spacing: 0.14em;
-      cursor: pointer;
-    }
-
-    .nav-logo span { color: var(--gold); }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.75rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: 'Tenor Sans', sans-serif; font-size: 1.05rem; font-weight: 400;
+      letter-spacing: 0.25em; color: var(--ink); text-decoration: none;
       text-transform: uppercase;
-      cursor: pointer;
     }
+    .logo-mark {
+      width: 26px; height: 26px;
+      background: var(--accent);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .logo-inner {
+      width: 11px; height: 11px;
+      background: var(--paper);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    }
+    .nav-links { display: flex; gap: 2.8rem; list-style: none; }
+    .nav-links a { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; cursor: pointer; transition: color 0.2s; padding-bottom: 3px; border-bottom: 1px solid transparent; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); border-bottom-color: var(--accent); }
 
-    .page { display: none; padding-top: 100px; }
+    /* PAGES */
+    .page { display: none; padding-top: 78px; min-height: 100vh; animation: fadeUp 0.45s ease; }
     .page.active { display: block; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* BUTTONS */
+    .btn { display: inline-block; padding: 0.9rem 2.4rem; font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; cursor: pointer; border: none; transition: all 0.25s; }
+    .btn-dark { background: var(--ink); color: var(--paper); }
+    .btn-dark:hover { background: var(--accent); color: var(--ink); }
+    .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+    .btn-outline:hover { background: var(--ink); color: var(--paper); }
+
+    /* shared */
+    .sec-eye { font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem; }
+    .sec-title { font-family: var(--serif); font-size: 2.4rem; font-weight: 300; line-height: 1.2; margin-bottom: 2.5rem; }
+
+    /* ════════════ HOME ════════════ */
     .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 90vh;
+      display: grid; grid-template-columns: 55% 45%;
+      min-height: calc(100vh - 78px);
+      border-bottom: 1px solid var(--line);
     }
-
     .hero-left {
+      padding: 5rem 4rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+      border-right: 1px solid var(--line);
+    }
+    .hero-eyebrow { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent); margin-bottom: 2.2rem; }
+    .hero-title { font-family: var(--serif); font-size: clamp(3rem, 4.5vw, 5.2rem); font-weight: 300; line-height: 1.07; margin-bottom: 2rem; }
+    .hero-title em { font-style: italic; color: var(--accent); }
+    .hero-desc { font-size: 0.93rem; line-height: 1.85; color: var(--muted); max-width: 430px; margin-bottom: 3rem; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .hero-right {
+      background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
       padding: 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
+    .chip-art { width: 100%; max-width: 380px; }
 
-    .hero-title {
-      font-family: var(--serif);
-      font-size: clamp(3rem, 5vw, 5rem);
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-title em { color: var(--gold); }
-
-    .hero-desc {
-      color: var(--muted);
-      max-width: 450px;
-      margin-bottom: 1.5rem;
-    }
-
-    .btn {
-      padding: 0.9rem 2.2rem;
-      background: black;
-      color: white;
-      border: none;
-      cursor: pointer;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-    }
-
-    .services {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      border-top: 1px solid var(--line);
-    }
-
-    .svc {
-      padding: 3rem;
-      border-right: 1px solid var(--line);
-    }
-
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+    .svc { padding: 3.5rem 3rem; border-right: 1px solid var(--line); transition: background 0.25s; }
     .svc:last-child { border-right: none; }
+    .svc:hover { background: var(--cream); }
+    .svc-num { font-family: var(--serif); font-size: 3rem; font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 1.2rem; }
+    .svc-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; margin-bottom: 0.8rem; }
+    .svc-desc { font-size: 0.83rem; line-height: 1.75; color: var(--muted); }
 
-    .svc-title {
-      font-family: var(--serif);
-      margin-bottom: 0.5rem;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      border-top: 1px solid var(--line);
-    }
-
-    .stat {
-      padding: 2rem;
-      text-align: center;
-      border-right: 1px solid var(--line);
-    }
-
+    .stats { display: grid; grid-template-columns: repeat(4,1fr); border-bottom: 1px solid var(--line); }
+    .stat { padding: 3rem 2rem; text-align: center; border-right: 1px solid var(--line); }
     .stat:last-child { border-right: none; }
+    .stat-n { font-family: var(--serif); font-size: 3.2rem; font-weight: 300; line-height: 1; margin-bottom: 0.4rem; }
+    .stat-n sup { font-size: 1.4rem; color: var(--accent); }
+    .stat-l { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 
-    footer {
-      padding: 2rem 4rem;
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
+    .tech-section { padding: 5rem 4rem; border-bottom: 1px solid var(--line); }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .tag { padding: 0.45rem 1.1rem; border: 1px solid var(--line); font-size: 0.78rem; color: var(--muted); transition: all 0.2s; cursor: default; }
+    .tag:hover { border-color: var(--accent); color: var(--ink); background: var(--cream); }
 
-    @media(max-width:900px){
-      .hero, .services, .stats { grid-template-columns: 1fr; }
-      nav { padding: 1rem; }
+    .home-footer { display: flex; align-items: center; justify-content: space-between; padding: 2rem 4rem; border-top: 1px solid var(--line); }
+    .home-footer p { font-size: 0.78rem; color: var(--muted); }
+
+    /* ════════════ ABOUT ════════════ */
+    .about-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; padding: 5.5rem 4rem 4rem; border-bottom: 1px solid var(--line); align-items: end; }
+    .about-title { font-family: var(--serif); font-size: clamp(2.5rem, 4vw, 4.8rem); font-weight: 300; line-height: 1.08; }
+    .about-title em { font-style: italic; color: var(--accent); }
+    .about-intro { font-size: 0.95rem; line-height: 1.9; color: var(--muted); }
+    .about-intro p + p { margin-top: 1.2rem; }
+
+    .values-grid { display: grid; grid-template-columns: repeat(2,1fr); }
+    .val { padding: 3.5rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background 0.25s; }
+    .val:nth-child(even) { border-right: none; }
+    .val:nth-child(3), .val:nth-child(4) { border-bottom: none; }
+    .val:hover { background: var(--cream); }
+    .val-icon { font-size: 1.8rem; margin-bottom: 1.2rem; }
+    .val-title { font-family: var(--serif); font-size: 1.45rem; font-weight: 500; margin-bottom: 0.8rem; }
+    .val-desc { font-size: 0.84rem; line-height: 1.8; color: var(--muted); }
+
+    .expertise-section { padding: 5rem 4rem; border-bottom: 1px solid var(--line); }
+    .expertise-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 2.5rem; }
+    .exp-col h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.8rem; }
+    .exp-list { list-style: none; }
+    .exp-list li { font-size: 0.85rem; line-height: 1.7; color: var(--muted); padding: 0.55rem 0; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 0.8rem; }
+    .exp-list li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
+
+    .about-cta { padding: 5rem 4rem; display: flex; align-items: center; justify-content: space-between; background: var(--cream); }
+    .about-cta h2 { font-family: var(--serif); font-size: 2.2rem; font-weight: 300; }
+    .about-cta p { font-size: 0.88rem; color: var(--muted); margin-top: 0.5rem; }
+
+    /* ════════════ CONTACT ════════════ */
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 78px); }
+    .contact-left { padding: 5.5rem 4rem; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
+    .contact-title { font-family: var(--serif); font-size: clamp(2.5rem,4vw,4.5rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.5rem; }
+    .contact-title em { font-style: italic; color: var(--accent); }
+    .contact-lead { font-size: 0.93rem; line-height: 1.85; color: var(--muted); margin-bottom: 3.5rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 2rem; }
+    .cd-item { display: flex; align-items: flex-start; gap: 1.2rem; }
+    .cd-icon { width: 40px; height: 40px; flex-shrink: 0; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 1rem; background: var(--cream); }
+    .cd-label { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
+    .cd-val { font-size: 0.9rem; color: var(--ink); }
+    .cd-val a { color: var(--ink); text-decoration: none; }
+    .cd-val a:hover { color: var(--accent); }
+    .contact-right { padding: 5.5rem 4rem; background: var(--cream); }
+    .form-title { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .form-subtitle { font-size: 0.83rem; color: var(--muted); margin-bottom: 2.5rem; }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    label { display: block; font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    input, textarea, select { width: 100%; padding: 0.85rem 1rem; background: var(--paper); border: 1px solid var(--line); font-family: var(--sans); font-size: 0.88rem; font-weight: 300; color: var(--ink); outline: none; transition: border-color 0.2s; appearance: none; -webkit-appearance: none; }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 130px; }
+    select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236e6b63' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; cursor: pointer; }
+    .form-submit { margin-top: 2rem; }
+    .form-note { font-size: 0.75rem; color: var(--muted); margin-top: 1rem; }
+    .success-msg { display: none; padding: 1rem 1.2rem; background: #f0faf0; border: 1px solid #c3e6c3; font-size: 0.85rem; color: #2d6a2d; margin-top: 1rem; }
+
+    /* FOOTER */
+    footer { padding: 2rem 4rem; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+    footer p { font-size: 0.75rem; color: var(--muted); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero, .contact-wrap, .about-hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 3rem 1.5rem; }
+      .about-hero, .contact-left, .contact-right { padding: 3rem 1.5rem; }
+      .services-grid, .stats, .values-grid, .expertise-cols { grid-template-columns: 1fr; }
+      .svc, .stat, .val { border-right: none !important; }
+      .tech-section, .expertise-section { padding: 3rem 1.5rem; }
+      .about-cta { flex-direction: column; gap: 2rem; align-items: flex-start; padding: 3rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer, .home-footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   </style>
 </head>
-
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-logo" onclick="showPage('home')">AURELOGICS<span>.</span></div>
+  <a class="nav-logo" href="#" onclick="showPage('home');return false;">
+    <div class="logo-mark"><div class="logo-inner"></div></div>
+    Aurelogics
+  </a>
   <ul class="nav-links">
-    <li><a onclick="showPage('home')">Home</a></li>
-    <li><a onclick="showPage('about')">About</a></li>
-    <li><a onclick="showPage('contact')">Contact</a></li>
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About Us</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HOME -->
-<div id="page-home" class="page active">
+<!-- ════════════ HOME ════════════ -->
+<div class="page active" id="page-home">
+
   <section class="hero">
     <div class="hero-left">
+      <p class="hero-eyebrow">ASIC Design &amp; Verification Services</p>
       <h1 class="hero-title">
-        Engineering <em>silicon</em><br>
-        that delivers<br>
-        certainty.
+        Silicon <em>precision,</em><br>engineered<br>for scale.
       </h1>
-
       <p class="hero-desc">
-        AURELOGICS delivers expert ASIC design and verification services —
-        from architecture to sign-off, built for teams that cannot afford uncertainty.
+        Aurelogics delivers expert ASIC design and verification services — from RTL architecture to sign-off. We partner with semiconductor teams who demand rigorous quality and on-time delivery.
       </p>
-
-      <p style="font-size:0.75rem;color:var(--muted);margin-bottom:2rem;">
-        Trusted by semiconductor teams across design and verification domains.
-      </p>
-
-      <button class="btn" onclick="showPage('contact')">Start a Project</button>
+      <div class="hero-cta">
+        <a class="btn btn-dark" onclick="showPage('contact')">Start a Project</a>
+        <a class="btn btn-outline" onclick="showPage('about')">Our Expertise</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <svg class="chip-art" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="60" width="280" height="280" stroke="#0d0d0d" stroke-width="1.5" fill="none"/>
+        <rect x="120" y="120" width="160" height="160" fill="#0d0d0d"/>
+        <line x1="160" y1="120" x2="160" y2="280" stroke="#a8884a" stroke-width="0.8" opacity="0.6"/>
+        <line x1="200" y1="120" x2="200" y2="280" stroke="#a8884a" stroke-width="0.8" opacity="0.6"/>
+        <line x1="240" y1="120" x2="240" y2="280" stroke="#a8884a" stroke-width="0.8" opacity="0.6"/>
+        <line x1="120" y1="160" x2="280" y2="160" stroke="#a8884a" stroke-width="0.8" opacity="0.6"/>
+        <line x1="120" y1="200" x2="280" y2="200" stroke="#a8884a" stroke-width="0.8" opacity="0.6"/>
+        <line x1="120" y1="240" x2="280" y2="240" stroke="#a8884a" stroke-width="0.8" opacity="0.6"/>
+        <rect x="183" y="183" width="34" height="34" fill="#a8884a" opacity="0.9"/>
+        <rect x="190" y="190" width="20" height="20" fill="#0d0d0d"/>
+        <line x1="60" y1="145" x2="120" y2="145" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="60" y1="170" x2="120" y2="170" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="60" y1="195" x2="120" y2="195" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="60" y1="220" x2="120" y2="220" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="60" y1="245" x2="120" y2="245" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="280" y1="145" x2="340" y2="145" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="280" y1="170" x2="340" y2="170" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="280" y1="195" x2="340" y2="195" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="280" y1="220" x2="340" y2="220" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="280" y1="245" x2="340" y2="245" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="145" y1="60" x2="145" y2="120" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="170" y1="60" x2="170" y2="120" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="195" y1="60" x2="195" y2="120" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="220" y1="60" x2="220" y2="120" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="245" y1="60" x2="245" y2="120" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="145" y1="280" x2="145" y2="340" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="170" y1="280" x2="170" y2="340" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="195" y1="280" x2="195" y2="340" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="220" y1="280" x2="220" y2="340" stroke="#0d0d0d" stroke-width="1.5"/>
+        <line x1="245" y1="280" x2="245" y2="340" stroke="#0d0d0d" stroke-width="1.5"/>
+        <circle cx="60" cy="60" r="4" fill="#a8884a"/>
+        <circle cx="340" cy="60" r="4" fill="#a8884a"/>
+        <circle cx="60" cy="340" r="4" fill="#a8884a"/>
+        <circle cx="340" cy="340" r="4" fill="#a8884a"/>
+        <text x="200" y="386" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="#6e6b63" letter-spacing="3">AURELOGICS</text>
+      </svg>
     </div>
   </section>
 
-  <section class="services">
+  <section class="services-grid">
     <div class="svc">
+      <div class="svc-num">01</div>
       <h3 class="svc-title">RTL Design</h3>
-      <p>Architecture, microarchitecture, and RTL for complex digital systems.</p>
+      <p class="svc-desc">Architecture definition, microarchitecture planning, and RTL coding in VHDL/SystemVerilog for complex digital designs including processors, controllers, and custom IP blocks.</p>
     </div>
-
     <div class="svc">
-      <h3 class="svc-title">Verification</h3>
-      <p>UVM, formal verification, and coverage-driven methodologies.</p>
+      <div class="svc-num">02</div>
+      <h3 class="svc-title">Functional Verification</h3>
+      <p class="svc-desc">UVM-based constrained random testbench development, coverage-driven verification, formal verification, and assertion-based methodologies to achieve sign-off confidence.</p>
     </div>
-
     <div class="svc">
+      <div class="svc-num">03</div>
       <h3 class="svc-title">Physical Design</h3>
-      <p>Full backend flow including PnR, CTS, and timing closure.</p>
+      <p class="svc-desc">Synthesis, floorplanning, place &amp; route, clock tree synthesis, timing closure, and signoff ECO for leading-edge and mature technology nodes.</p>
     </div>
   </section>
 
   <section class="stats">
-    <div class="stat">10+ Years Experience</div>
-    <div class="stat">25+ Tape-outs</div>
-    <div class="stat">5nm Node</div>
-    <div class="stat">100% NDA</div>
+    <div class="stat"><div class="stat-n">10<sup>+</sup></div><div class="stat-l">Years Combined Experience</div></div>
+    <div class="stat"><div class="stat-n">25<sup>+</sup></div><div class="stat-l">Successful Tape-outs</div></div>
+    <div class="stat"><div class="stat-n">5nm</div><div class="stat-l">Smallest Node Achieved</div></div>
+    <div class="stat"><div class="stat-n">100<sup>%</sup></div><div class="stat-l">NDA-Protected Engagements</div></div>
   </section>
 
+  <section class="tech-section">
+    <p class="sec-eye">Technologies &amp; Tools</p>
+    <h2 class="sec-title">Full-spectrum ASIC toolchain expertise</h2>
+    <div class="tags">
+      <span class="tag">SystemVerilog</span><span class="tag">VHDL</span><span class="tag">UVM</span>
+      <span class="tag">Formal Verification</span><span class="tag">Synopsys DC</span><span class="tag">Cadence Genus</span>
+      <span class="tag">Synopsys ICC2</span><span class="tag">Cadence Innovus</span><span class="tag">Mentor Questa</span>
+      <span class="tag">Cadence Xcelium</span><span class="tag">Synopsys VCS</span><span class="tag">Primetime STA</span>
+      <span class="tag">Calibre DRC/LVS</span><span class="tag">AMBA AXI/APB/AHB</span><span class="tag">PCIe</span>
+      <span class="tag">DDR</span><span class="tag">USB</span><span class="tag">Low Power / UPF</span>
+      <span class="tag">Python</span><span class="tag">TCL</span>
+    </div>
+  </section>
+
+  <div class="home-footer">
+    <p>© 2025 Aurelogics. All rights reserved.</p>
+    <p>contact@aurelogics.com</p>
+  </div>
+</div>
+
+<!-- ════════════ ABOUT ════════════ -->
+<div class="page" id="page-about">
+
+  <section class="about-hero">
+    <div>
+      <p class="sec-eye" style="margin-bottom:1rem;">About Aurelogics</p>
+      <h1 class="about-title">Built by<br>engineers,<br>for <em>engineers.</em></h1>
+    </div>
+    <div class="about-intro">
+      <p>Aurelogics is a specialist ASIC design and verification services firm. We work alongside semiconductor companies, fabless startups, and system integrators who need deep technical expertise without the overhead of a full in-house team.</p>
+      <p>Our team brings hands-on experience across the full ASIC development cycle — from early architecture decisions through RTL implementation, verification sign-off, and physical design tape-out. We understand the pressure of tapeout schedules and the cost of re-spins.</p>
+      <p>Whether you need a verification specialist for a critical design block or a complete design team for your next chip, Aurelogics delivers with the discipline and precision that silicon demands.</p>
+    </div>
+  </section>
+
+  <section class="values-grid">
+    <div class="val">
+      <div class="val-icon">◈</div>
+      <h3 class="val-title">Technical Depth</h3>
+      <p class="val-desc">We go beyond surface-level engagement. Our engineers dig deep into microarchitecture, protocol nuances, and tool internals to solve problems that others miss.</p>
+    </div>
+    <div class="val">
+      <div class="val-icon">◎</div>
+      <h3 class="val-title">Quality First</h3>
+      <p class="val-desc">Every deliverable goes through rigorous internal review. We maintain thorough documentation and structured handoffs so your team is never left in the dark.</p>
+    </div>
+    <div class="val">
+      <div class="val-icon">⬡</div>
+      <h3 class="val-title">Confidentiality</h3>
+      <p class="val-desc">IP protection is non-negotiable in our industry. We operate under strict NDAs and treat your design data with the same care we would our own.</p>
+    </div>
+    <div class="val">
+      <div class="val-icon">◇</div>
+      <h3 class="val-title">Predictable Delivery</h3>
+      <p class="val-desc">We set realistic schedules, communicate early on blockers, and deliver on time. Your tapeout date is our commitment, not just a target.</p>
+    </div>
+  </section>
+
+  <section class="expertise-section">
+    <p class="sec-eye">Areas of Expertise</p>
+    <h2 class="sec-title">End-to-end ASIC capability</h2>
+    <div class="expertise-cols">
+      <div class="exp-col">
+        <h3>Design Services</h3>
+        <ul class="exp-list">
+          <li>RTL design in SystemVerilog &amp; VHDL</li>
+          <li>Microarchitecture definition &amp; documentation</li>
+          <li>Custom IP development (interfaces, controllers)</li>
+          <li>Low-power design with UPF/CPF</li>
+          <li>Clock domain crossing analysis</li>
+          <li>DFT insertion (scan, MBIST, JTAG)</li>
+          <li>Synthesis &amp; timing constraints</li>
+          <li>Physical design — PnR, CTS, STA</li>
+        </ul>
+      </div>
+      <div class="exp-col">
+        <h3>Verification Services</h3>
+        <ul class="exp-list">
+          <li>UVM testbench architecture &amp; development</li>
+          <li>Constrained random &amp; directed testing</li>
+          <li>Coverage-driven verification (functional &amp; code)</li>
+          <li>Formal property verification</li>
+          <li>Assertion-based verification (SVA)</li>
+          <li>Emulation &amp; prototyping support</li>
+          <li>Verification planning &amp; closure reporting</li>
+          <li>Gate-level simulation &amp; power analysis</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="about-cta">
+    <div>
+      <h2>Ready to discuss your project?</h2>
+      <p>Tell us about your design challenge and we'll respond within one business day.</p>
+    </div>
+    <a class="btn btn-dark" onclick="showPage('contact')">Get in Touch</a>
+  </div>
+
   <footer>
-    <p>© 2026 AURELOGICS. All rights reserved.</p>
-    <p>contact@aurelogics.com · www.aurelogics.com</p>
+    <p>© 2025 Aurelogics. All rights reserved.</p>
+    <p>contact@aurelogics.com</p>
   </footer>
 </div>
 
-<!-- ABOUT -->
-<div id="page-about" class="page">
-  <section style="padding:4rem;">
-    <h1 style="font-family:var(--serif); font-size:3rem;">
-      Built by engineers,<br>for engineers.
-    </h1>
+<!-- ════════════ CONTACT ════════════ -->
+<div class="page" id="page-contact">
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <div>
+        <p class="sec-eye" style="margin-bottom:1rem;">Contact</p>
+        <h1 class="contact-title">Let's build<br>something <em>precise.</em></h1>
+        <p class="contact-lead">We'd love to hear about your project. Fill in the form or reach us directly — we typically respond within one business day.</p>
+        <div class="contact-details">
+          <div class="cd-item">
+            <div class="cd-icon">✉</div>
+            <div>
+              <p class="cd-label">Email</p>
+              <p class="cd-val"><a href="mailto:contact@aurelogics.com">contact@aurelogics.com</a></p>
+            </div>
+          </div>
 
-    <p style="margin-top:2rem; max-width:700px; color:var(--muted);">
-      AURELOGICS partners with semiconductor companies and startups
-      requiring deep ASIC execution without compromise.
-    </p>
-  </section>
+          <div class="cd-item">
+            <div class="cd-icon">◎</div>
+            <div>
+              <p class="cd-label">Availability</p>
+              <p class="cd-val">Mon – Fri, 9:00 AM – 6:00 PM IST</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:0.75rem;color:var(--muted);margin-top:3rem;">All enquiries are handled under strict NDA. Your design details are safe with us.</p>
+    </div>
+
+    <div class="contact-right">
+      <h2 class="form-title">Send us a message</h2>
+      <p class="form-subtitle">Tell us about your project and we'll be in touch shortly.</p>
+      <div class="form-row form-group">
+        <div><label for="fname">First Name</label><input type="text" id="fname" placeholder="Ravi"/></div>
+        <div><label for="lname">Last Name</label><input type="text" id="lname" placeholder="Kumar"/></div>
+      </div>
+      <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" placeholder="ravi@company.com"/></div>
+      <div class="form-group"><label for="company">Company / Organisation</label><input type="text" id="company" placeholder="Acme Semiconductors"/></div>
+      <div class="form-group">
+        <label for="service">Service of Interest</label>
+        <select id="service">
+          <option value="" disabled selected>Select a service…</option>
+          <option>RTL Design</option>
+          <option>Functional Verification (UVM)</option>
+          <option>Formal Verification</option>
+          <option>Physical Design</option>
+          <option>Full ASIC Development</option>
+          <option>Other / Not sure yet</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="message">Tell us about your project</label><textarea id="message" placeholder="Briefly describe your design, technology node, timeline, and any specific requirements…"></textarea></div>
+      <div class="form-submit">
+        <button class="btn btn-dark" id="submit-btn" onclick="submitForm()" style="width:100%;text-align:center;">Send Message</button>
+        <p class="form-note">We'll get back to you within one business day.</p>
+        <div class="success-msg" id="success-msg">✓ &nbsp; Thank you! Your message has been received. We'll be in touch shortly.</div>
+      </div>
+    </div>
+  </div>
 
   <footer>
-    <p>© 2026 AURELOGICS. All rights reserved.</p>
-    <p>contact@aurelogics.com · www.aurelogics.com</p>
-  </footer>
-</div>
-
-<!-- CONTACT -->
-<div id="page-contact" class="page">
-  <section style="padding:4rem;">
-    <h1 style="font-family:var(--serif); font-size:3rem;">
-      Let's build something precise.
-    </h1>
-
-    <p style="margin-top:1rem; color:var(--muted);">
-      Reach out and we’ll respond within one business day.
-    </p>
-
-    <p style="margin-top:2rem;">
-      <strong>Email:</strong> contact@aurelogics.com
-    </p>
-  </section>
-
-  <footer>
-    <p>© 2026 AURELOGICS. All rights reserved.</p>
-    <p>contact@aurelogics.com · www.aurelogics.com</p>
+    <p>© 2025 Aurelogics. All rights reserved.</p>
+    <p>contact@aurelogics.com</p>
   </footer>
 </div>
 
 <script>
-function showPage(name){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  window.scrollTo({top:0});
-}
-</script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('nav-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
+  function submitForm() {
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if (!fname || !email) { alert('Please fill in at least your name and email address.'); return; }
+    document.getElementById('success-msg').style.display = 'block';
+    document.querySelectorAll('#page-contact input, #page-contact textarea, #page-contact select').forEach(el => el.disabled = true);
+    document.getElementById('submit-btn').disabled = true;
+    document.getElementById('submit-btn').style.opacity = '0.45';
+  }
+</script>
 </body>
 </html>
